@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mustafe Abdi Mohamed, PhD — Development Economist</title>
+<meta name="description" content="Mustafe Abdi Mohamed, PhD — development economist working on macro-fiscal analysis, national planning and financing for development in Somalia and the Horn of Africa.">
+<meta name="author" content="Mustafe Abdi Mohamed">
+<meta property="og:title" content="Mustafe Abdi Mohamed, PhD — Development Economist">
+<meta property="og:description" content="Macro-fiscal analysis, national planning and financing for development in Somalia and the Horn of Africa.">
+<meta property="og:type" content="profile">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff;
+    --surface:#f6f7f9;
+    --line:#e4e7ec;
+    --ink:#101828;
+    --ink-2:#475467;
+    --ink-3:#858c99;
+    --brand:#0f3d4c;
+    --brand-2:#0d6a7d;
+    --accent:#c8862b;
+    --hero-ink:#e8eef0;
+    --hero-ink-2:#9db4bc;
+    --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    --serif:"Newsreader",Georgia,serif;
+    --radius:12px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#0d1117;--surface:#151b23;--line:#242c38;
+      --ink:#e8ecf2;--ink-2:#a9b2c0;--ink-3:#79828f;
+      --brand:#0a2c37;--brand-2:#2f9db3;--accent:#e0a63f;
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+    font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:var(--brand-2);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 24px}
+
+  /* ---------- Top bar ---------- */
+  .bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;height:58px;gap:20px}
+  .mark{font-weight:600;font-size:15px;letter-spacing:-.01em;color:var(--ink)}
+  .mark span{color:var(--ink-3);font-weight:400}
+  .bar nav{display:flex;gap:22px;font-size:14px}
+  .bar nav a{color:var(--ink-2)}
+  .bar nav a:hover{color:var(--brand-2);text-decoration:none}
+  @media (max-width:720px){.bar nav{display:none}}
+
+  /* ---------- Hero ---------- */
+  .hero{background:var(--brand);color:var(--hero-ink);padding:64px 0 56px;
+    background-image:radial-gradient(900px 380px at 82% -8%,rgba(200,134,43,.20),transparent 62%)}
+  .hero .inner{display:flex;gap:38px;align-items:center}
+  .photo{width:124px;height:124px;flex:0 0 124px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);
+    font-size:29px;font-weight:600;letter-spacing:.05em;color:#fff;object-fit:cover}
+  .hero h1{margin:0 0 8px;font-size:36px;line-height:1.15;letter-spacing:-.02em;color:#fff;font-weight:600}
+  .hero .role{margin:0 0 14px;font-size:17px;color:var(--hero-ink)}
+  .hero .role b{color:var(--accent);font-weight:600}
+  .hero .sub{margin:0;font-size:15px;color:var(--hero-ink-2);max-width:56ch;line-height:1.6}
+  .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+  .btn{display:inline-block;padding:9px 16px;border-radius:8px;font-size:14px;font-weight:500;
+    border:1px solid rgba(255,255,255,.25);color:#fff}
+  .btn:hover{background:rgba(255,255,255,.10);text-decoration:none}
+  .btn.solid{background:var(--accent);border-color:var(--accent);color:#26170a;font-weight:600}
+  .btn.solid:hover{filter:brightness(1.06)}
+  @media (max-width:720px){
+    .hero{padding:44px 0 40px}
+    .hero .inner{flex-direction:column;align-items:flex-start;gap:22px}
+    .hero h1{font-size:29px}
+  }
+
+  /* ---------- Strip ---------- */
+  .strip{background:var(--surface);border-bottom:1px solid var(--line)}
+  .strip .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding-top:22px;padding-bottom:22px}
+  .strip .n{font-size:24px;font-weight:600;letter-spacing:-.02em;color:var(--ink)}
+  .strip .l{font-size:12.5px;color:var(--ink-3);line-height:1.4}
+  @media (max-width:720px){.strip .wrap{grid-template-columns:1fr 1fr;gap:18px}}
+
+  /* ---------- Sections ---------- */
+  section{padding:56px 0;border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:none}
+  .eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--brand-2);
+    font-weight:600;margin:0 0 10px}
+  h2{margin:0 0 22px;font-size:26px;letter-spacing:-.02em;font-weight:600}
+  .lede{font-family:var(--serif);font-size:20px;line-height:1.55;color:var(--ink);margin:0 0 16px;max-width:70ch}
+  section p{color:var(--ink-2);max-width:72ch;margin:0 0 14px}
+
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+  .card h3{margin:0 0 6px;font-size:15.5px;font-weight:600}
+  .card p{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.55}
+  .card .dot{width:22px;height:3px;border-radius:2px;background:var(--accent);display:block;margin-bottom:12px}
+  @media (max-width:820px){.cards{grid-template-columns:1fr}}
+
+  .tl{border-left:2px solid var(--line);margin-left:6px;padding-left:26px}
+  .item{position:relative;padding-bottom:30px}
+  .item:last-child{padding-bottom:0}
+  .item::before{content:"";position:absolute;left:-33px;top:6px;width:11px;height:11px;border-radius:50%;
+    background:var(--bg);border:2px solid var(--brand-2)}
+  .item .when{font-size:12.5px;color:var(--ink-3);letter-spacing:.02em;margin-bottom:3px}
+  .item h3{margin:0 0 2px;font-size:17.5px;font-weight:600;line-height:1.35}
+  .item .org{font-size:14px;color:var(--brand-2);margin:0 0 8px;font-weight:500}
+  .item p{margin:0;font-size:15px;line-height:1.6}
+
+  .pub{display:flex;gap:16px;padding:16px 0;border-top:1px solid var(--line);align-items:flex-start}
+  .pub:first-of-type{border-top:none}
+  .yr{flex:0 0 52px;font-size:13px;color:var(--ink-3);padding-top:2px;font-variant-numeric:tabular-nums}
+  .pub h3{margin:0 0 3px;font-size:16px;font-weight:600;line-height:1.45}
+  .pub .meta{margin:0;font-size:14px;color:var(--ink-2)}
+  .pub .meta em{font-style:italic}
+  .chip{display:inline-block;font-size:11px;letter-spacing:.04em;text-transform:uppercase;font-weight:600;
+    padding:2px 8px;border-radius:20px;margin-left:8px;vertical-align:2px;
+    background:color-mix(in srgb,var(--brand-2) 14%,transparent);color:var(--brand-2)}
+  .subhead{font-size:12.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);
+    font-weight:600;margin:0 0 6px;padding-top:8px}
+  .subhead + .pub{border-top:none}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:34px}
+  @media (max-width:720px){.grid2{grid-template-columns:1fr;gap:26px}}
+  .rows{list-style:none;margin:0;padding:0}
+  .rows li{display:flex;gap:14px;padding:11px 0;border-top:1px solid var(--line);font-size:15px}
+  .rows li:first-child{border-top:none}
+  .rows .y{flex:0 0 52px;color:var(--ink-3);font-size:13px;padding-top:2px;font-variant-numeric:tabular-nums}
+  .rows b{font-weight:600;display:block}
+  .rows span{color:var(--ink-2);font-size:14px}
+
+  .contact{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:28px;display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:center}
+  .contact p{margin:0;max-width:46ch}
+  footer{padding:26px 0 40px;font-size:13px;color:var(--ink-3);line-height:1.6}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <div class="mark">Mustafe Abdi Mohamed<span>, PhD</span></div>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#focus">Focus</a>
+      <a href="#experience">Experience</a>
+      <a href="#publications">Publications</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<div class="hero">
+  <div class="wrap inner">
+    <!-- To use a photo: replace the div below with
+         <img class="photo" src="assets/profile.jpg" alt="Mustafe Abdi Mohamed"> -->
+    <div class="photo">MAM</div>
+    <div>
+      <h1>Mustafe Abdi Mohamed, PhD</h1>
+      <p class="role">Development Economist &middot; <b>UN Resident Coordinator's Office, Somalia</b></p>
+      <p class="sub">Macro-fiscal analysis, long-term national planning and financing for development in Somalia and the Horn of Africa &mdash; bridging applied economic research and national policy.</p>
+      <div class="cta">
+        <a class="btn solid" href="#publications">Publications</a>
+        <a class="btn" href="mailto:mustafemoh20@gmail.com">Get in touch</a>
+        <a class="btn" href="https://www.linkedin.com/in/mustafe-mohamed/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn" href="https://orcid.org/0000-0002-0547-9351" target="_blank" rel="noopener">ORCID</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="strip">
+  <div class="wrap">
+    <div><div class="n">11+</div><div class="l">Years in economic policy and analysis</div></div>
+    <div><div class="n">PhD</div><div class="l">Development Economics, Marmara University</div></div>
+    <div><div class="n">9</div><div class="l">Published papers and policy studies</div></div>
+    <div><div class="n">2060</div><div class="l">Co-architect of Somalia's Centennial Vision</div></div>
+  </div>
+</div>
+
+<!-- ============ ABOUT ============ -->
+<section id="about">
+  <div class="wrap">
+    <p class="eyebrow">About</p>
+    <h2>Economic analysis in service of national policy</h2>
+    <p class="lede">I work on the questions that decide whether a fragile economy can finance its own development &mdash; how revenue is raised, how public resources are allocated, and how households, remittances and finance connect to growth.</p>
+    <p>I am currently Development Coordination Officer (Economist) at the UN Resident Coordinator's Office in Somalia, where I lead the analytical agenda of the Economic Transformation Pillar under the UN Sustainable Development Cooperation Framework 2026&ndash;2030, and support Somalia's Integrated National Financing Framework alongside the Ministries of Finance and Planning, the World Bank, the IMF and the AfDB.</p>
+    <p>Previously I served in the Office of the President as Deputy Development Lead for <em>Somalia Centennial Vision 2060</em> &mdash; the country's first sovereign long-term development strategy &mdash; and as Senior Economist at the National Economic Council, where I co-authored the annual <em>State of the Somali Economy</em> report and contributed to the analytical work underpinning Somalia's HIPC completion. My academic research on financial inclusion, remittances and household welfare has been published in peer-reviewed development economics journals.</p>
+  </div>
+</section>
+
+<!-- ============ FOCUS ============ -->
+<section id="focus">
+  <div class="wrap">
+    <p class="eyebrow">Focus areas</p>
+    <h2>What I work on</h2>
+    <div class="cards">
+      <div class="card"><span class="dot"></span><h3>Macro-fiscal analysis</h3><p>Long-term fiscal projections, scenario modelling and macro-fiscal frameworks in fragile and post-HIPC settings.</p></div>
+      <div class="card"><span class="dot"></span><h3>National development planning</h3><p>Long-term strategy, results frameworks, and translating vision documents into costed, monitorable plans.</p></div>
+      <div class="card"><span class="dot"></span><h3>Financing for development</h3><p>INFF design, domestic revenue mobilisation, ODA analysis, diaspora bonds and blended finance.</p></div>
+      <div class="card"><span class="dot"></span><h3>Financial inclusion &amp; remittances</h3><p>Access to finance, household welfare effects of remittances, and financial sector deepening.</p></div>
+      <div class="card"><span class="dot"></span><h3>Trade &amp; regional integration</h3><p>Trade in services, AfCFTA implementation, and Somalia's integration into regional markets.</p></div>
+      <div class="card"><span class="dot"></span><h3>Applied econometrics</h3><p>Panel data, propensity score matching, ordered response models, PCA and quantile regression.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPERIENCE ============ -->
+<section id="experience">
+  <div class="wrap">
+    <p class="eyebrow">Experience</p>
+    <h2>Professional track record</h2>
+    <div class="tl">
+      <div class="item">
+        <div class="when">July 2025 &ndash; Present</div>
+        <h3>Development Coordination Officer, Economist</h3>
+        <p class="org">UN Resident Coordinator's Office &middot; Mogadishu</p>
+        <p>Lead macroeconomic, trade and financing analysis for the UN Country Team; align the Cooperation Framework 2026&ndash;2030 with Centennial Vision 2060 and the National Transformation Plan; advance Somalia's Integrated National Financing Framework and coordinate policy dialogue with government and international financial institutions.</p>
+      </div>
+      <div class="item">
+        <div class="when">January 2024 &ndash; June 2025</div>
+        <h3>Deputy Development Lead, Centennial Vision 2060</h3>
+        <p class="org">National Economic Council, Office of the President &middot; Mogadishu</p>
+        <p>Led analytical development and drafting of Somalia's first long-term national strategy, applying macro-fiscal modelling, scenario planning and revenue forecasting; coordinated consultations across the Federal Government, Federal Member States, UN agencies, the World Bank, ECA and the African Union.</p>
+      </div>
+      <div class="item">
+        <div class="when">July 2021 &ndash; January 2024</div>
+        <h3>Senior Economist</h3>
+        <p class="org">National Economic Council &middot; Mogadishu</p>
+        <p>Directed research on macroeconomics, trade, financial inclusion and social policy; co-authored the flagship <em>State of the Somali Economy</em> report; authored <em>Revitalizing Somalia: Development Pathways to 2045 and Beyond</em>; contributed to Somalia's HIPC completion analytical package.</p>
+      </div>
+      <div class="item">
+        <div class="when">August 2017 &ndash; October 2021</div>
+        <h3>Senior Lecturer in Economics (part-time)</h3>
+        <p class="org">Nugaal University &middot; Laascaanood</p>
+        <p>Taught microeconomics, macroeconomics, econometrics, statistics and development economics; supervised undergraduate research and contributed to curriculum reform.</p>
+      </div>
+      <div class="item">
+        <div class="when">July 2018 &ndash; July 2021</div>
+        <h3>Senior Program Officer</h3>
+        <p class="org">CARE International Somalia &middot; Mogadishu</p>
+        <p>Managed a multi-donor education programme across 21 schools in Sool and Buhodle, with budget oversight, M&amp;E systems, and government and community coordination.</p>
+      </div>
+      <div class="item">
+        <div class="when">May 2013 &ndash; August 2014</div>
+        <h3>Program Officer</h3>
+        <p class="org">CARE International Somalia &middot; Garowe</p>
+        <p>Supported operational planning, field assessments and donor reporting across the Puntland portfolio.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PUBLICATIONS ============ -->
+<section id="publications">
+  <div class="wrap">
+    <p class="eyebrow">Publications</p>
+    <h2>Selected research and policy work</h2>
+
+    <p class="subhead">Peer-reviewed articles</p>
+    <div class="pub"><div class="yr">2023</div><div>
+      <h3>Impact of Financial Inclusion on Household Welfare in Ethiopia</h3>
+      <p class="meta"><em>Future Business Journal</em> &middot; <a href="https://fbj.springeropen.com/articles/10.1186/s43093-023-00243-y" target="_blank" rel="noopener">Read article</a></p></div></div>
+    <div class="pub"><div class="yr">2020</div><div>
+      <h3>Remittances and Household Expenditure Patterns in Somalia: A Propensity Score Matching Analysis</h3>
+      <p class="meta"><em>Journal of Research in Economics</em>, 4(1), Marmara University</p></div></div>
+    <div class="pub"><div class="yr">2020</div><div>
+      <h3>Evaluating the Determinants of Household Poverty in Somalia using PCA and Quantile Regression</h3>
+      <p class="meta"><em>International Journal of Economics, Commerce and Management</em> &middot; <a href="http://ijecm.co.uk/wp-content/uploads/2020/10/81017.pdf" target="_blank" rel="noopener">PDF</a></p></div></div>
+    <div class="pub"><div class="yr">&mdash;</div><div>
+      <h3>Factors Associated with Household Food Security in Somalia: An Ordered Probit Approach</h3>
+      <p class="meta"><em>Somali Journal of Science, Technology and Society</em> &middot; <a href="https://africa.pagepress.net/sjsts/article/view/386" target="_blank" rel="noopener">Read article</a></p></div></div>
+    <div class="pub"><div class="yr">&mdash;</div><div>
+      <h3>Is Remittance a Panacea for Economic Growth? Evidence from Africa<span class="chip">Under review</span></h3>
+      <p class="meta">Working paper</p></div></div>
+
+    <p class="subhead">Policy and institutional publications</p>
+    <div class="pub"><div class="yr">2024</div><div>
+      <h3>Revitalizing Somalia: Exploring Development Pathways to 2045 and Beyond</h3>
+      <p class="meta">National Economic Council of Somalia &middot; <a href="https://nec.gov.so/wp-content/uploads/2024/10/Revitalizing-Somalia.pdf" target="_blank" rel="noopener">PDF</a></p></div></div>
+    <div class="pub"><div class="yr">&mdash;</div><div>
+      <h3>Access to Finance and Financial Inclusion in Somalia</h3>
+      <p class="meta">NEC Policy Brief &middot; <a href="https://nec.gov.so/p1-policy-brief_access-to-finance_mustafe/" target="_blank" rel="noopener">Read brief</a></p></div></div>
+    <div class="pub"><div class="yr">2024</div><div>
+      <h3>State of the Somali Economy Report 2024</h3>
+      <p class="meta">National Economic Council of Somalia &middot; contributor and co-author</p></div></div>
+    <div class="pub"><div class="yr">2023</div><div>
+      <h3>State of the Somali Economy Report 2023</h3>
+      <p class="meta">National Economic Council of Somalia &middot; contributor and co-author</p></div></div>
+  </div>
+</section>
+
+<!-- ============ EDUCATION ============ -->
+<section id="education">
+  <div class="wrap">
+    <p class="eyebrow">Background</p>
+    <h2>Education, affiliations and languages</h2>
+    <div class="grid2">
+      <div>
+        <p class="subhead" style="padding-top:0">Education &amp; training</p>
+        <ul class="rows">
+          <li><span class="y">2020</span><div><b>PhD, Economics</b><span>Marmara University, Istanbul &mdash; Development Economics and Economic Growth</span></div></li>
+          <li><span class="y">2025</span><div><b>Data Science Specialization</b><span>Johns Hopkins University (Coursera)</span></div></li>
+          <li><span class="y">2013</span><div><b>MA, Economic Policy and Planning</b><span>Kampala International University</span></div></li>
+          <li><span class="y">2012</span><div><b>PG Certificate, Project Planning and Management</b><span>Makerere University</span></div></li>
+          <li><span class="y">2011</span><div><b>BSc, Economics</b><span>University of Hargeisa</span></div></li>
+        </ul>
+      </div>
+      <div>
+        <p class="subhead" style="padding-top:0">Affiliations</p>
+        <ul class="rows">
+          <li><div><b>African Economic Research Consortium</b><span>Member, AERC network</span></div></li>
+          <li><div><b>Somali Economists Association</b><span>Member</span></div></li>
+          <li><div><b>Marmara University</b><span>Institute of Social Sciences alumni network</span></div></li>
+        </ul>
+        <p class="subhead">Languages</p>
+        <ul class="rows">
+          <li><div><b>Somali</b><span>Native</span></div></li>
+          <li><div><b>English</b><span>Fluent</span></div></li>
+          <li><div><b>Turkish</b><span>Professional working</span></div></li>
+          <li><div><b>Arabic</b><span>Basic</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact">
+  <div class="wrap">
+    <p class="eyebrow">Contact</p>
+    <h2>Get in touch</h2>
+    <div class="contact">
+      <p>Open to research collaboration, peer review, speaking invitations and advisory engagements on macro-fiscal policy, development financing and trade.</p>
+      <div class="cta" style="margin:0">
+        <a class="btn solid" href="mailto:mustafemoh20@gmail.com" style="color:#26170a">mustafemoh20@gmail.com</a>
+        <a class="btn" href="https://github.com/mustafemoh" target="_blank" rel="noopener" style="border-color:var(--line);color:var(--ink)">GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <p style="margin:0 0 6px">The views expressed on this site are personal and do not necessarily reflect those of the United Nations or any affiliated institution.</p>
+  <p style="margin:0">&copy; <span id="yr">2026</span> Mustafe Abdi Mohamed &middot; Mogadishu, Somalia &middot; Last updated August 2026</p>
+</footer>
+
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>
