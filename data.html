@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Somalia Economic Data</title>
+<meta name="description" content="Open data on Somalia's economy: growth, prices, external sector, public finance, aid, population and regional comparisons, with CSV, Excel and LaTeX downloads.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: an academic data appendix. Tabs across the top, each tab a short
+   intro, then figure + table pairs with downloads beneath, like a statistical annex. */
+:root{
+  --surface:#fcfcfb; --surface-2:#f2f2ef; --ink:#0b0b0b; --ink-2:#52514e; --muted:#7a7974;
+  --line:#e2e1dc; --grid:#ecebe7; --accent:#1f5f8b;
+  --series-1:#2a78d6; --series-2:#eb6834; --series-3:#1baf7a; --series-4:#eda100; --context:#b9b8b2; --ref:#52514e; --proj:#eef3fa;
+  --neg:#2a78d6;
+  --font-display:"Source Serif 4", Georgia, serif;
+  --font-body:"Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --surface:#1a1a19; --surface-2:#232321; --ink:#f0efec; --ink-2:#c3c2b7; --muted:#97968e;
+    --line:#34332f; --grid:#2a2a27; --accent:#7fb3e0;
+    --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --series-4:#c98500; --context:#5b5a55; --ref:#c3c2b7; --proj:#1f2733; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --surface:#1a1a19; --surface-2:#232321; --ink:#f0efec; --ink-2:#c3c2b7; --muted:#97968e;
+  --line:#34332f; --grid:#2a2a27; --accent:#7fb3e0;
+  --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --series-4:#c98500; --context:#5b5a55; --ref:#c3c2b7; --proj:#1f2733; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--surface);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.55}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+h1,h2,h3{font-family:var(--font-display);font-weight:600;line-height:1.2;text-wrap:balance;margin:0}
+h1{font-size:clamp(1.8rem,3.5vw,2.4rem)}
+h2{font-size:1.5rem}
+h3{font-size:1.1rem}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+header.top{border-bottom:1px solid var(--line);padding:36px 0 22px}
+.kicker{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.lede{color:var(--ink-2);max-width:68ch;margin:12px 0 0}
+.meta-line{font-size:.85rem;color:var(--muted);margin-top:10px}
+nav.tabs{position:sticky;top:0;z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:4px;overflow-x:auto;scrollbar-width:thin}
+nav.tabs button{font:inherit;font-size:.92rem;background:none;border:0;border-bottom:2px solid transparent;padding:12px 12px 10px;color:var(--ink-2);cursor:pointer;white-space:nowrap}
+nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
+main{padding:28px 0 64px}
+.panel{display:none}
+.panel.active{display:block}
+.panel>.intro{color:var(--ink-2);max-width:68ch;margin:6px 0 24px}
+/* tiles */
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:8px 0 28px}
+.tile{background:var(--surface-2);border-radius:8px;padding:16px;display:grid;gap:4px}
+.tile .v{font-family:var(--font-display);font-size:1.7rem;font-variant-numeric:tabular-nums}
+.tile .l{font-size:.88rem;color:var(--ink-2)}
+.tile .s{font-size:.78rem;color:var(--muted)}
+@media (max-width:820px){.tiles{grid-template-columns:repeat(2,1fr)}}
+/* figure/table blocks */
+.block{border-top:1px solid var(--line);padding-top:22px;margin-top:26px}
+.figs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin:14px 0 18px}
+.figs.one{grid-template-columns:minmax(0,760px)}
+@media (max-width:820px){.figs{grid-template-columns:minmax(0,1fr)}}
+figure{margin:0;position:relative}
+figcaption{font-size:.9rem;color:var(--ink-2);margin-bottom:6px}
+figcaption b{color:var(--ink);font-weight:600}
+svg.chart{width:100%;height:auto;display:block;overflow:visible}
+svg.chart text{font-family:var(--font-body);font-size:11px;fill:var(--muted);font-variant-numeric:tabular-nums}
+svg.chart .grid{stroke:var(--grid);stroke-width:1}
+svg.chart .zero{stroke:var(--ink-2);stroke-width:1}
+svg.chart .projband{fill:var(--proj)}
+svg.chart .projlabel{fill:var(--muted);font-size:10px}
+svg.chart .hit{fill:transparent;cursor:crosshair}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.82rem;color:var(--ink-2);margin-top:6px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{display:inline-block;width:14px;height:3px;border-radius:2px}
+.tip{position:absolute;pointer-events:none;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:6px 9px;font-size:.82rem;box-shadow:0 2px 8px rgba(0,0,0,.08);white-space:nowrap;display:none;z-index:3}
+.tip b{font-variant-numeric:tabular-nums}
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:6px}
+table{border-collapse:collapse;width:100%;font-size:.86rem;font-variant-numeric:tabular-nums}
+thead th{border-bottom:1.5px solid var(--ink);font-weight:600;text-align:right;padding:8px 10px;white-space:nowrap;background:var(--surface)}
+thead th:first-child,thead th.lft{text-align:left}
+tbody td{padding:6px 10px;text-align:right;border-bottom:1px solid var(--grid);white-space:nowrap}
+tbody td:first-child{text-align:left;position:sticky;left:0;background:var(--surface);font-weight:500}
+tbody td.unit{text-align:left;color:var(--muted)}
+tbody tr:last-child td{border-bottom:1.5px solid var(--ink)}
+td.proj,th.proj{background:var(--proj);font-style:italic}
+tr.hl td{font-weight:600}
+.note{font-size:.8rem;color:var(--muted);margin-top:8px;max-width:90ch}
+.dl{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;font-size:.85rem}
+.dl a{text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:3px 12px;color:var(--ink-2)}
+.dl a:hover{border-color:var(--accent);color:var(--accent)}
+.pending{margin-top:26px;border:1px dashed var(--line);border-radius:8px;padding:16px 18px;background:var(--surface-2)}
+.pending h3{font-size:1rem;margin-bottom:6px}
+.pending p{font-size:.88rem;color:var(--ink-2);margin:0 0 8px}
+.pending ul{margin:0;padding-left:18px;font-size:.88rem;color:var(--ink-2)}
+.prose{max-width:72ch;color:var(--ink-2)}
+.prose h3{color:var(--ink);margin:22px 0 6px}
+.prose p,.prose ul{margin:0 0 10px}
+.err{padding:20px;border:1px solid var(--line);border-radius:8px;color:var(--ink-2)}
+footer{border-top:1px solid var(--line);padding:22px 0;font-size:.82rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <p class="kicker"><a href="index.html" style="color:inherit;text-decoration:none">← Mustafe Abdi Mohamed</a> · Data resource</p>
+    <h1>Somalia economic data</h1>
+    <p class="lede">A curated collection of public data on Somalia's economy, with regional comparisons. Every table can be downloaded as CSV, Excel or LaTeX, and the whole collection is rebuilt from source by open scripts.</p>
+    <p class="meta-line" id="metaLine">Loading…</p>
+  </div>
+</header>
+<nav class="tabs" aria-label="Topics"><div class="wrap" id="tabBar" role="tablist"></div></nav>
+<main><div class="wrap" id="panels"><p class="err">Loading data…</p></div></main>
+<footer><div class="wrap">Compiled by Mustafe Abdi Mohamed from public sources. This is personal research and does not represent the views of any employer. Report errors or suggestions by email.</div></footer>
+
+<script type="application/json" id="data-inline"></script>
+<script>
+(function(){
+const NS="http://www.w3.org/2000/svg";
+const el=(t,a={},p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e;};
+const h=(t,a={},html)=>{const e=document.createElement(t);for(const k in a)e.setAttribute(k,a[k]);if(html!=null)e.innerHTML=html;return e;};
+const fmtNum=(v,unit)=>{if(v==null||v==="")return "–";v=+v;
+  if(unit&&/US\$/.test(unit)&&!/billion/.test(unit)&&Math.abs(v)>=1e9)return (v/1e9).toFixed(2)+" bn";
+  if(unit&&/US\$/.test(unit)&&!/billion/.test(unit)&&Math.abs(v)>=1e6)return (v/1e6).toFixed(0)+" m";
+  if(Math.abs(v)>=1000)return v.toLocaleString("en-US",{maximumFractionDigits:0});
+  return v.toFixed(1);};
+const niceTicks=(lo,hi,n=5)=>{const span=hi-lo||1;const step0=span/n;const mag=Math.pow(10,Math.floor(Math.log10(step0)));
+  const step=[1,2,2.5,5,10].map(m=>m*mag).find(s=>span/s<=n)||mag*10;const a=Math.floor(lo/step)*step,b=Math.ceil(hi/step)*step;
+  const t=[];for(let v=a;v<=b+step/2;v+=step)t.push(+v.toFixed(10));return t;};
+
+function chart(fig,spec,reg){
+  const series=spec.series.map(id=>({id,...reg.series[id]})).filter(s=>s.data&&s.data.length);
+  if(!series.length)return;
+  const multi=spec.kind==="multi";const cat=spec.kind==="lines";
+  const short=n=>n.replace(/ \((actual|approved budget)\)$/,"").replace(/^Execution rate: /,"");
+  let all=series.flatMap(s=>s.data);
+  if(multi){all=all.filter(d=>d[0]>=2010);series.forEach(s=>s.data=s.data.filter(d=>d[0]>=2010));}
+  const years=[...new Set(all.map(d=>d[0]))].sort((a,b)=>a-b);
+  const vals=all.map(d=>d[1]);
+  let lo=Math.min(0,...vals),hi=Math.max(0,...vals);
+  const ticks=niceTicks(lo,hi);lo=ticks[0];hi=ticks[ticks.length-1];
+  const W=520,H=270,m={t:22,r:multi?92:14,b:26,l:46};
+  const iw=W-m.l-m.r,ih=H-m.t-m.b;
+  const x0=years[0],x1=years[years.length-1];
+  const bar=spec.kind==="bar";
+  const bw=bar?Math.max(3,iw/years.length-2):0;
+  const X=y=>bar?m.l+(years.indexOf(y)+0.5)*(iw/years.length):m.l+(x1===x0?iw/2:(y-x0)/(x1-x0)*iw);
+  const Y=v=>m.t+ih-(v-lo)/(hi-lo)*ih;
+  const svg=el("svg",{viewBox:`0 0 ${W} ${H}`,class:"chart",role:"img","aria-label":spec.title});
+  const pf=series[0].proj_from;
+  if(pf&&pf<=x1){const xs=bar?X(Math.max(pf,x0))-(iw/years.length)/2:X(Math.max(pf,x0));
+    el("rect",{x:xs,y:m.t,width:m.l+iw-xs,height:ih,class:"projband"},svg);
+    const t=el("text",{x:m.l+iw,y:m.t-7,"text-anchor":"end",class:"projlabel"},svg);t.textContent="Shaded: IMF estimates & projections";}
+  ticks.forEach(v=>{el("line",{x1:m.l,x2:m.l+iw,y1:Y(v),y2:Y(v),class:v===0?"zero":"grid"},svg);
+    const t=el("text",{x:m.l-6,y:Y(v)+4,"text-anchor":"end"},svg);t.textContent=Math.abs(v)>=1000?v.toLocaleString("en-US"):v;});
+  const every=Math.ceil(years.length/8);
+  let lastX=-99;years.forEach((y,i)=>{if(i%every&&i!==years.length-1)return;if(X(y)-lastX<34)return;lastX=X(y);const t=el("text",{x:X(y),y:H-8,"text-anchor":"middle"},svg);t.textContent=y;});
+  const tip=h("div",{class:"tip"});fig.appendChild(tip);
+  const showTip=(evt,html)=>{tip.innerHTML=html;tip.style.display="block";const r=fig.getBoundingClientRect();
+    let x=evt.clientX-r.left+12,y=evt.clientY-r.top-10;if(x+tip.offsetWidth>r.width)x-=tip.offsetWidth+24;tip.style.left=x+"px";tip.style.top=y+"px";};
+  const hideTip=()=>tip.style.display="none";
+  if(bar){
+    const s=series[0];
+    s.data.forEach(([y,v])=>{const yy=Y(Math.max(v,0)),hh=Math.max(1,Math.abs(Y(v)-Y(0)));const proj=pf&&y>=pf;
+      const r=el("rect",{x:X(y)-bw/2,y:yy,width:bw,height:hh,rx:Math.min(3,bw/3),fill:"var(--series-1)","fill-opacity":proj?0.45:1},svg);
+      const hit=el("rect",{x:X(y)-(iw/years.length)/2,y:m.t,width:iw/years.length,height:ih,class:"hit"},svg);
+      hit.addEventListener("mousemove",e=>showTip(e,`${y}${proj?" (proj.)":""}: <b>${fmtNum(v,s.unit)}</b>`));hit.addEventListener("mouseleave",hideTip);});
+  } else {
+    const labels=[];
+    const order=multi?[...series].sort((a,b)=>(a.country==="SOM")-(b.country==="SOM")||(a.country==="SSQ")-(b.country==="SSQ")):series;
+    order.forEach(s=>{const som=s.country==="SOM",ssa=s.country==="SSQ";
+      const col=cat?`var(--series-${series.indexOf(s)+1})`:(!multi||som?"var(--series-1)":ssa?"var(--ref)":"var(--context)");
+      const pts=s.data.map(([y,v])=>`${X(y)},${Y(v)}`);
+      const solid=s.data.filter(d=>!pf||d[0]<=pf),proj=s.data.filter(d=>pf&&d[0]>=pf);
+      const path=d=>d.map(([y,v],i)=>(i?"L":"M")+X(y)+","+Y(v)).join("");
+      if(solid.length>1)el("path",{d:path(solid),fill:"none",stroke:col,"stroke-width":som||!multi?2.2:1.4,"stroke-dasharray":ssa?"5 3":"","stroke-linejoin":"round"},svg);
+      if(proj.length>1)el("path",{d:path(proj),fill:"none",stroke:col,"stroke-width":som||!multi?2.2:1.4,"stroke-dasharray":"3 3","stroke-opacity":.8},svg);
+      if(multi&&(som||ssa)){const last=s.data[s.data.length-1];labels.push({y:Y(last[1])+4,x:X(last[0])+6,som});}
+      if(cat){s.data.forEach(([y,v])=>el("circle",{cx:X(y),cy:Y(v),r:3.2,fill:col,stroke:"var(--surface)","stroke-width":1.5},svg));}
+      else if(!multi){const last=s.data.filter(d=>!pf||d[0]<pf).pop();if(last){el("circle",{cx:X(last[0]),cy:Y(last[1]),r:4,fill:col,stroke:"var(--surface)","stroke-width":2},svg);}}
+    });
+    labels.sort((a,b)=>a.y-b.y);for(let i=1;i<labels.length;i++)if(labels[i].y-labels[i-1].y<13)labels[i].y=labels[i-1].y+13;
+    labels.forEach(l=>{const t=el("text",{x:l.x,y:l.y,style:`fill:var(--ink-2);font-weight:${l.som?600:400}`},svg);t.textContent=l.som?"Somalia":"SSA avg.";});
+    const cross=el("line",{y1:m.t,y2:m.t+ih,stroke:"var(--ink-2)","stroke-width":1,"stroke-dasharray":"2 2",visibility:"hidden"},svg);
+    const hit=el("rect",{x:m.l,y:m.t,width:iw,height:ih,class:"hit"},svg);
+    hit.addEventListener("mousemove",e=>{const pt=svg.createSVGPoint();pt.x=e.clientX;pt.y=e.clientY;const p=pt.matrixTransform(svg.getScreenCTM().inverse());
+      const y=years.reduce((a,b)=>Math.abs(X(b)-p.x)<Math.abs(X(a)-p.x)?b:a);cross.setAttribute("x1",X(y));cross.setAttribute("x2",X(y));cross.setAttribute("visibility","visible");
+      const rows=series.map(s=>{const d=s.data.find(d=>d[0]===y);return d?{n:cat?short(s.name):(reg.countries[s.country]||s.name),v:d[1],som:!cat&&s.country==="SOM"}:null}).filter(Boolean).sort((a,b)=>b.v-a.v);
+      const lines=rows.map(r=>`${r.som?"<b>":""}${multi||cat?r.n+": ":""}${fmtNum(r.v,series[0].unit)}${r.som?"</b>":""}`).join("<br>");
+      showTip(e,`<div style="color:var(--muted)">${y}${pf&&y>=pf?" (proj.)":""}</div>${multi||cat?lines:"<b>"+lines+"</b>"}`);});
+    hit.addEventListener("mouseleave",()=>{hideTip();cross.setAttribute("visibility","hidden");});
+  }
+  fig.appendChild(svg);
+  if(cat){fig.appendChild(h("div",{class:"legend"},series.map((s,i)=>`<span><i style="background:var(--series-${i+1})"></i>${short(s.name)}</span>`).join("")));}
+  if(multi){const lg=h("div",{class:"legend"},`<span><i style="background:var(--series-1)"></i>Somalia</span><span><i style="background:var(--ref)"></i>Sub-Saharan Africa (dashed)</span><span><i style="background:var(--context)"></i>Kenya, Ethiopia, Uganda, Tanzania, Rwanda, Djibouti</span>`);fig.appendChild(lg);}
+}
+
+function table(block,t,reg){
+  const pf=reg.imf_proj_from;
+  const isPeer=t.unit!=null;
+  const anyImf=isPeer||t.series.some(id=>id.startsWith("imf"));
+  const yearCols=t.header.map((c,i)=>/^\d{4}$/.test(c)?i:-1).filter(i=>i>=0);
+  let html="<thead><tr>"+t.header.map((c,i)=>{const proj=anyImf&&yearCols.includes(i)&&+c>=pf;return `<th class="${i<(isPeer?1:2)?"lft":""}${proj?" proj":""}">${c}</th>`}).join("")+"</tr></thead><tbody>";
+  t.rows.forEach((r,ri)=>{const unit=isPeer?t.unit:r[1];const imf=isPeer||(t.series[ri]||"").startsWith("imf");
+    html+=`<tr class="${r[0]==="Somalia"?"hl":""}">`+r.map((v,i)=>{
+      if(i===0)return `<td>${v}</td>`;if(!isPeer&&i===1)return `<td class="unit">${v}</td>`;
+      const yr=+t.header[i];const proj=imf&&yr>=pf;return `<td class="${proj?"proj":""}">${fmtNum(v,unit)}</td>`}).join("")+"</tr>";});
+  html+="</tbody>";
+  const wrap=h("div",{class:"table-wrap"});const tb=h("table",{},html);
+  if(isPeer)tb.setAttribute("aria-label",t.title+" ("+t.unit+")");wrap.appendChild(tb);block.appendChild(wrap);
+  block.appendChild(h("p",{class:"note"},t.note+(anyImf?" Shaded italic cells are IMF estimates or projections.":"")));
+  const f=t.files||{};const dl=h("div",{class:"dl"});
+  if(f.csv)dl.appendChild(h("a",{href:f.csv},"CSV"));if(f.xlsx)dl.appendChild(h("a",{href:f.xlsx},"Excel"));if(f.tex)dl.appendChild(h("a",{href:f.tex},"LaTeX"));
+  block.appendChild(dl);
+}
+
+function latest(s,maxYear){const d=s.data.filter(d=>d[0]<=maxYear);return d[d.length-1];}
+
+function render(reg){
+  const bar=document.getElementById("tabBar"),panels=document.getElementById("panels");panels.innerHTML="";
+  document.getElementById("metaLine").textContent=`Built ${reg.built} · IMF data accessed ${reg.accessed.imf||"–"} · World Bank data accessed ${reg.accessed.wb||"not yet"} · Budget data updated ${reg.accessed.mof||"–"}`;
+  const tabs=[{id:"overview",title:"Overview"},...reg.tabs,{id:"sources",title:"Sources & methods"}];
+  tabs.forEach(t=>{const b=h("button",{role:"tab",id:"tab-"+t.id,"aria-controls":"panel-"+t.id,"aria-selected":"false"},t.title);b.addEventListener("click",()=>{location.hash=t.id;});bar.appendChild(b);});
+
+  // overview
+  const ov=h("section",{class:"panel",id:"panel-overview",role:"tabpanel"});
+  ov.appendChild(h("h2",{},"Somalia at a glance"));
+  ov.appendChild(h("p",{class:"intro"},`Latest values for headline indicators. Figures for ${reg.imf_proj_from} and later are IMF estimates or projections.`));
+  const tiles=h("div",{class:"tiles"});
+  reg.snapshot.forEach(id=>{const s=reg.series[id];const yr=reg.imf_proj_from;const d=s.source.startsWith("IMF")?(s.data.find(d=>d[0]===yr)||latest(s,yr)):latest(s,9999);if(!d)return;
+    tiles.appendChild(h("div",{class:"tile"},`<span class="v">${fmtNum(d[1],s.unit)}</span><span class="l">${s.name}</span><span class="s">${s.unit} · ${d[0]}${s.proj_from&&d[0]>=s.proj_from?" (est.)":""} · ${s.source.startsWith("IMF")?"IMF":s.source.startsWith("World Bank")?"World Bank":s.source.startsWith("Ministry")?"Ministry of Finance":"MoF and IMF, author's calc."}</span>`));});
+  ov.appendChild(tiles);
+  const ovFigs=h("div",{class:"figs"});
+  [["imf:NGDP_RPCH:SOM","bar","Real GDP growth","annual % change"],["imf:BCA_NGDPD:SOM","bar","Current account balance","% of GDP"]].forEach(([id,kind,title,unit])=>{
+    if(!reg.series[id])return;const fig=h("figure");fig.appendChild(h("figcaption",{},`<b>${title}</b> · ${unit}`));ovFigs.appendChild(fig);chart(fig,{kind,series:[id],title},reg);});
+  ov.appendChild(ovFigs);
+  ov.appendChild(h("p",{class:"note"},"Use the tabs above for each topic. Every table has CSV, Excel and LaTeX downloads."));
+  panels.appendChild(ov);
+
+  reg.tabs.forEach(t=>{
+    const p=h("section",{class:"panel",id:"panel-"+t.id,role:"tabpanel"});
+    p.appendChild(h("h2",{},t.title));p.appendChild(h("p",{class:"intro"},t.intro));
+    t.tables.forEach(tb=>{
+      const block=h("div",{class:"block"});block.appendChild(h("h3",{},tb.title));
+      if(tb.charts.length){const figs=h("div",{class:"figs"+(tb.charts.length===1?" one":"")});
+        tb.charts.forEach(c=>{const fig=h("figure");fig.appendChild(h("figcaption",{},`<b>${c.kind==="multi"?"Somalia and neighbours":c.title}</b> · ${c.unit}`));figs.appendChild(fig);chart(fig,c,reg);});
+        block.appendChild(figs);}
+      table(block,tb,reg);p.appendChild(block);});
+    const pend=reg.pending.filter(x=>x.tab===t.id);
+    if(pend.length){const box=h("div",{class:"pending"});box.appendChild(h("h3",{},"Coming in the next update"));
+      box.appendChild(h("p",{},"These series are set up in the build scripts and will appear automatically once their source is refreshed:"));
+      box.appendChild(h("ul",{},pend.map(x=>`<li>${x.name} <span style="color:var(--muted)">(${x.source})</span></li>`).join("")));p.appendChild(box);}
+    if(!t.tables.length&&!pend.length)p.appendChild(h("p",{class:"err"},"No data yet."));
+    panels.appendChild(p);});
+
+  // sources
+  const sp=h("section",{class:"panel",id:"panel-sources",role:"tabpanel"});
+  sp.appendChild(h("h2",{},"Sources & methods"));
+  sp.appendChild(h("div",{class:"prose"},`
+    <h3>Sources</h3>
+    <ul>
+      <li><b>IMF World Economic Outlook</b>, through the IMF DataMapper API. Growth, GDP, income per person, inflation, current account, fiscal balance, government debt and population.</li>
+      <li><b>World Bank World Development Indicators</b>, through the World Bank API. Remittances, aid, trade, investment, demography, poverty and access to services.</li>
+      <li><b>Ministry of Finance</b> (Federal Government of Somalia): Appropriation Acts and budget performance reports, compiled by the author. These and any derived ratios are labelled as such.</li>
+    </ul>
+    <h3>Federal budget data</h3>
+    <p>Approved budgets come from each year's Appropriation Act (table 5.1). Actual outturns come from the summary tables of later budget laws, which report the outturn two years back, and from the Ministry of Finance's end-year budget performance reports. Ratios to GDP use IMF estimates of nominal GDP. Proposed budgets are shown only once enacted.</p>
+    <ul>${Object.entries(reg.budget_sources||{}).map(([k,v])=>`<li><b>FY${k}:</b> ${v}</li>`).join("")}</ul>
+    <h3>Estimates and projections</h3>
+    <p>IMF figures for ${reg.imf_proj_from} and later are estimates or projections and will be revised. They are shaded and italic in tables, and shown with a shaded band and dashed lines in charts.</p>
+    <h3>How the collection is built</h3>
+    <p>Two short Python scripts, using only the standard library, rebuild everything from source: <code>scripts/fetch_data.py</code> downloads the raw data, and <code>scripts/build.py</code> produces the clean CSV files, Excel and LaTeX tables, and the data file this page reads. A scheduled job refreshes the collection monthly. The full history of every change is kept in the repository.</p>
+    <h3>Use and citation</h3>
+    <p>Please cite the original sources. To cite this collection: Mohamed, M. A. (${reg.built.slice(0,4)}). <i>Somalia economic data</i>. Accessed [date].</p>
+    <p>Original data remain subject to the terms of their providers (IMF and World Bank data are open for reuse with attribution).</p>`));
+  panels.appendChild(sp);
+
+  const show=()=>{const id=(location.hash||"#overview").slice(1);const ok=tabs.some(t=>t.id===id)?id:"overview";
+    tabs.forEach(t=>{const on=t.id===ok;document.getElementById("tab-"+t.id).setAttribute("aria-selected",on);document.getElementById("panel-"+t.id).classList.toggle("active",on);});};
+  window.addEventListener("hashchange",show);show();
+}
+
+const inline=document.getElementById("data-inline");
+if(inline&&inline.textContent.trim().length>2){render(JSON.parse(inline.textContent));}
+else fetch("data/somalia.json").then(r=>r.json()).then(render).catch(()=>{document.getElementById("panels").innerHTML='<p class="err">The data file could not be loaded. If you opened this page from your computer, run a local server (python -m http.server) or view it on GitHub Pages.</p>';});
+})();
+</script>
+</body>
+</html>
